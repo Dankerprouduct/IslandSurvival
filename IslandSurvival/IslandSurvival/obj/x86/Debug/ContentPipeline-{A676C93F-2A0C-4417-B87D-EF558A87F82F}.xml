@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>DryTile2.png</Source>
+      <Name>DryTile2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\DryTile2.xnb</Output>
+      <Time>2016-09-04T22:08:39.9781791-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Water1.png</Source>
+      <Name>Water1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Water1.xnb</Output>
+      <Time>2016-09-04T22:08:39.9991945-04:00</Time>
+    </Item>
+    <Item>
+      <Source>SandTile1.png</Source>
+      <Name>SandTile1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\SandTile1.xnb</Output>
+      <Time>2016-09-04T22:08:39.9931902-04:00</Time>
+    </Item>
+    <Item>
+      <Source>tree.png</Source>
+      <Name>tree</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\tree.xnb</Output>
+      <Time>2016-09-04T22:08:40.0132056-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Grass2.jpg</Source>
+      <Name>Grass2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Grass2.xnb</Output>
+      <Time>2016-09-04T22:08:39.9861864-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Sand1.jpg</Source>
+      <Name>Sand1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Sand1.xnb</Output>
+      <Time>2016-09-04T22:08:39.9921899-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Grass1.png</Source>
+      <Name>Grass1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Grass1.xnb</Output>
+      <Time>2016-09-04T22:08:39.9791802-04:00</Time>
+    </Item>
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2016-09-04T22:08:39.9981937-04:00</Time>
+    </Item>
+    <Item>
+      <Source>orangeGuy.png</Source>
+      <Name>orangeGuy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\orangeGuy.xnb</Output>
+      <Time>2016-09-04T22:08:40.0122041-04:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{A676C93F-2A0C-4417-B87D-EF558A87F82F}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvivalContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2016-09-03T07:25:05.5152921-04:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

@@ -1,0 +1,2 @@
+C:\Users\David\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvivalContent\obj\x86\Debug\IslandSurvivalContent.contentprojResolveAssemblyReference.cache
+C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvivalContent\obj\x86\Debug\IslandSurvivalContent.contentprojResolveAssemblyReference.cache
