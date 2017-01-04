@@ -133,7 +133,7 @@ namespace IslandSurvival
                 throw new Exception(
                     string.Format(
                         "unable to find a path between {0},{1} and {2},{3}",
-                        start.X, start.Y,
+                        start.X, start.Y, 
                         end.X, end.Y
                     )
                 );
@@ -158,7 +158,7 @@ namespace IslandSurvival
                 if (Weight[node.X + 1, node.Y] > 0)
                 {
                     nodes.Add(new Point(node.X + 1, node.Y));
-                }
+                } 
 
                 // down
                 if (Weight[node.X, node.Y + 1] > 0)

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="IslandSurvivalLibrary.Item[]">
+
+    <Item>
+      <name>Wooden Logs</name>
+      <description>Raw wood from trees</description>
+      <jobType>Hauler</jobType>
+      <stackCount>8</stackCount>
+      <itemId>001</itemId>
+    </Item>
+   
+    
+
+  </Asset>
+</XnaContent>

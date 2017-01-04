@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="IslandSurvivalLibrary.Job[]">
+
+    <Item> 
+      <name>Hauler</name> 
+      <strength>1</strength>
+      <dexterity>0</dexterity>
+      <intellect>0</intellect>
+      <speed>0</speed>
+
+      <PreferedObject>Empty</PreferedObject>
+      <Objecttype>Nothing</Objecttype>
+    </Item> <!-- 0 -->
+
+    <Item>
+      <name>Miner</name>
+      <strength>1</strength>
+      <dexterity>0</dexterity>
+      <intellect>0</intellect>
+      <speed>0</speed>
+    
+      <PreferedObject>Pickaxe</PreferedObject>
+      <Objecttype>Tool</Objecttype>
+    </Item> <!-- 1 -->
+
+    <Item>
+      <name>Forestry</name>
+      <strength>1</strength>
+      <dexterity>0</dexterity>
+      <intellect>0</intellect>
+      <speed>0</speed>
+    
+      <PreferedObject>Axe</PreferedObject>
+      <Objecttype>Tool</Objecttype>
+    </Item> <!-- 2 -->
+
+    <Item>
+      <name>Builder</name>
+      <strength>1</strength>
+      <dexterity>1</dexterity>
+      <intellect>0</intellect>
+      <speed>0</speed>
+
+      <PreferedObject>Hammer</PreferedObject>
+      <Objecttype>Tool</Objecttype>
+    </Item> <!-- 3 -->
+
+    <Item> 
+      <name>Hunter</name>
+      <strength>1</strength>
+      <dexterity>1</dexterity>
+      <intellect>1</intellect>
+      <speed>1</speed>
+
+      <PreferedObject>Nothing</PreferedObject>
+      <Objecttype>Weapon</Objecttype>
+    </Item> <!-- 4 -->
+    
+    <Item>
+      <name>FreeTime</name>
+      <strength>0</strength>
+      <dexterity>0</dexterity>
+      <intellect>0</intellect>
+      <speed>0</speed>
+
+      <PreferedObject>Empty</PreferedObject>
+      <Objecttype>Nothing</Objecttype>
+    </Item> <!-- 5 -->
+
+    
+  
+  </Asset>
+</XnaContent>

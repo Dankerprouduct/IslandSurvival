@@ -1,7 +1,4 @@
 
-
-print("made it this far"); 
-
 minWood = 50; 
 minStone = 50; 
 cWood = 0; 
@@ -12,20 +9,39 @@ cStone = 0;
 -- 2 - stone
 
 taskAdded = false; 
+
+CollectWood = false; 
+ColelctStone = false; 
+
 function Update()
 	
 	cWood = GetWood(); 
 	cStone = GetWood(); 
 
+	if(cWood <= minWood) then 
+
+	AddWoodTask(); 
+	
+	end
 
 	-- how to keep it from spamming new task?
-	if((cWood < minWood) and (taskAdded == false)) then 
+	if((cWood < minWood)) then 
 	
 	AddWoodTask(); 
 	
 	taskAdded = true;
 
 	end 
+
+	if((minWood > cWood)) then
+
+	CollectWood = true; 
+
+	elseif (cWood > minWood) then 
+
+	CollectWood = false; 
+
+	end
 
 	
 	
@@ -36,9 +52,9 @@ function ResetTask()
 end 
 
 function AddWoodTask() 
-	GenerateNewTask(1);
+	GenerateNewTask("Forestry");
 end
 
 function AddStoneTask()
-	GenerateNewTask(2); 
+	GenerateNewTask("Miner"); 
 end

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IslandSurvival", "IslandSurvival\IslandSurvival\IslandSurvival.csproj", "{261A33D5-DFD3-47F9-A64E-C52128F3EA4F}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "IslandSurvivalContent", "IslandSurvival\IslandSurvivalContent\IslandSurvivalContent.contentproj", "{A676C93F-2A0C-4417-B87D-EF558A87F82F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IslandSurvivalContent", "IslandSurvival\IslandSurvivalContent\IslandSurvivalContent.contentproj", "{A676C93F-2A0C-4417-B87D-EF558A87F82F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IslandSurvivalLibrary", "IslandSurvivalLibrary\IslandSurvivalLibrary.csproj", "{3089BCDE-420F-4028-BD50-4A59BEA83B1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{261A33D5-DFD3-47F9-A64E-C52128F3EA4F}.Release|x86.Build.0 = Release|x86
 		{A676C93F-2A0C-4417-B87D-EF558A87F82F}.Debug|x86.ActiveCfg = Debug|x86
 		{A676C93F-2A0C-4417-B87D-EF558A87F82F}.Release|x86.ActiveCfg = Release|x86
+		{3089BCDE-420F-4028-BD50-4A59BEA83B1F}.Debug|x86.ActiveCfg = Debug|x86
+		{3089BCDE-420F-4028-BD50-4A59BEA83B1F}.Debug|x86.Build.0 = Debug|x86
+		{3089BCDE-420F-4028-BD50-4A59BEA83B1F}.Release|x86.ActiveCfg = Release|x86
+		{3089BCDE-420F-4028-BD50-4A59BEA83B1F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

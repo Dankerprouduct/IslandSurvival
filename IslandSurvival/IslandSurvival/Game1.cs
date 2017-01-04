@@ -12,42 +12,40 @@ using Microsoft.Xna.Framework.Media;
 
 namespace IslandSurvival
 {
-   
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Camera camera; 
+        Camera camera;
         TerrainGenerator terrainGenerator;
         public int SCREEN_WIDTH = 1280;
         public int SCREEN_HEIGHT;
 
-        float fps; 
-        SpriteFont spriteFont; 
+        float fps;
+        SpriteFont spriteFont;
         public Player player;
 
-        Texture2D texture;
-
         KeyboardState keyboardState;
+        KeyboardState oldKeyboardState;
 
-        public static Vector2 worldPos; 
+        public static Vector2 worldPos;
         Vector2 mousePos;
-        MouseState mouseState; 
+        MouseState mouseState;
 
-        public static int sizeX = 300;
+        public static int sizeX = 500;
         public static int sizeY = 300;
 
-        Line line;
+        bool paused = false;
 
 
-        Group group;
-
-
-        SurvivorManager survivors; 
+        SurvivorManager survivors;
+        Line[] lines;
+        Line[] groupLines; 
         public static Vector2 GetMousePosition()
         {
-            return worldPos; 
+            return worldPos;
         }
         public Game1()
         {
@@ -58,81 +56,101 @@ namespace IslandSurvival
             SCREEN_HEIGHT = (SCREEN_WIDTH / 16) * 9;
             graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
             IsMouseVisible = true;
-                       
+
 
         }
-                
 
-        
+
+
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
 
-            
+
             base.Initialize();
         }
-        
+
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // cool seeds 
-            // 9999
-            string seed = "kljkbj";
-            Console.WriteLine(seed.GetHashCode()); 
+            string seed = "iuhygfdxs";//"kljkbj";
+            Console.WriteLine(seed.GetHashCode());
             terrainGenerator = new TerrainGenerator(sizeX, sizeY, seed.GetHashCode());
             terrainGenerator.LoadContent(Content);
             camera = new Camera(GraphicsDevice.Viewport);
-            player = new Player(new Vector2((0 * 2) /2, (0 * 32) / 2));
+            player = new Player(new Vector2((0 * 2) / 2, (0 * 32) / 2));
 
             spriteFont = Content.Load<SpriteFont>("SpriteFont1");
 
             survivors = new SurvivorManager();
-
             survivors.LoadContent(Content);
 
+            lines = new Line[survivors.survivors.Count];
+            groupLines = new Line[survivors.survivors.Count]; 
+            
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
+                groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice); 
+            }
         }
-        
+
         protected override void UnloadContent()
         {
-            
+
         }
-        
+
         protected override void Update(GameTime gameTime)
         {
             keyboardState = Keyboard.GetState();
 
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
-                this.Exit(); 
+                this.Exit();
             }
 
             Game1 game = this;
+
+            terrainGenerator.Update(gameTime);
 
             mouseState = Mouse.GetState();
             mousePos = new Vector2(mouseState.X, mouseState.Y);
             worldPos = Vector2.Transform(mousePos, Matrix.Invert(camera.transform));
 
 
-            
-
-            if (keyboardState.IsKeyDown(Keys.U))
+            for (int i = 0; i < lines.Length; i++)
             {
-                survivors.CompileLua(); 
+                lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
+                lines[i].Update();
+                groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice);
+                groupLines[i].Update(); 
+            }
+            if (keyboardState.IsKeyDown(Keys.C) && oldKeyboardState.IsKeyUp(Keys.C))
+            {
+                survivors.CompileLua();
+            }
+            if (keyboardState.IsKeyDown(Keys.Space) && oldKeyboardState.IsKeyUp(Keys.Space))
+            {
+                paused = !paused;
             }
 
-            survivors.Update(); 
+            if (!paused)
+            {
+                survivors.Update();
+            }
 
-            
 
-           // Adam.Update(); 
+            // Adam.Update(); 
             player.Update();
-            camera.Update(ref game); 
+            camera.Update(ref game);
+            oldKeyboardState = keyboardState;
             base.Update(gameTime);
         }
-        
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Blue);
@@ -140,18 +158,27 @@ namespace IslandSurvival
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null,
                 null, null, null, camera.transform);
 
-            
+
             terrainGenerator.Draw(spriteBatch);
 
             //spriteBatch.Draw(texture, Adam.GetPosition(), Color.White);
 
-            survivors.Draw(spriteBatch); 
 
+            for (int i = 0; i < lines.Length; i++)
+            {
+                lines[i].Draw(spriteBatch);
+                groupLines[i].Draw(spriteBatch); 
+            }
+
+
+
+            terrainGenerator.DrawMaterials(spriteBatch); 
+            survivors.Draw(spriteBatch);
+                        
             terrainGenerator.DrawTrees(spriteBatch);
-            fps =  1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+            fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            //line.Draw(spriteBatch);
-            
+
 
 
             spriteBatch.End();
@@ -160,9 +187,9 @@ namespace IslandSurvival
             spriteBatch.Begin();
 
             spriteBatch.DrawString(spriteFont, "FPS: " + ((int)fps).ToString(), new Vector2(50, 50), Color.Red);
-            spriteBatch.DrawString(spriteFont, "Mouse Position: " + (worldPos.X / 32).ToString() + " - " + (worldPos.Y / 32).ToString(), new Vector2(50, 75), Color.Red);
+            spriteBatch.DrawString(spriteFont, "Mouse Position: " + ((int)worldPos.X / 32).ToString() + " - " + ((int)worldPos.Y / 32).ToString(), new Vector2(50, 75), Color.Red);
 
-            spriteBatch.End(); 
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

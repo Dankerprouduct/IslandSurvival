@@ -65,6 +65,24 @@
       <Time>2016-09-04T22:08:39.9791802-04:00</Time>
     </Item>
     <Item>
+      <Source>orangeGuy.png</Source>
+      <Name>orangeGuy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\orangeGuy.xnb</Output>
+      <Time>2016-09-04T22:08:40.0122041-04:00</Time>
+    </Item>
+    <Item>
+      <Source>raw_wood.png</Source>
+      <Name>raw_wood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\raw_wood.xnb</Output>
+      <Time>2016-11-10T13:34:06.8958728-05:00</Time>
+    </Item>
+    <Item>
       <Source>SpriteFont1.spritefont</Source>
       <Name>SpriteFont1</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -74,13 +92,49 @@
       <Time>2016-09-04T22:08:39.9981937-04:00</Time>
     </Item>
     <Item>
-      <Source>orangeGuy.png</Source>
-      <Name>orangeGuy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Source>SpriteFont2.spritefont</Source>
+      <Name>SpriteFont2</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\orangeGuy.xnb</Output>
-      <Time>2016-09-04T22:08:40.0122041-04:00</Time>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\SpriteFont2.xnb</Output>
+      <Time>2016-10-03T11:42:39.9003441-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Xml\ItemDatabase.xml</Source>
+      <Name>Xml\ItemDatabase</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\ItemDatabase.xnb</Output>
+      <Time>2016-11-30T13:37:57.78373-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Xml\Names.xml</Source>
+      <Name>Xml\Names</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\Names.xnb</Output>
+      <Time>2016-11-14T12:50:54.7403553-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Xml\Jobs.xml</Source>
+      <Name>Xml\Jobs</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\Jobs.xnb</Output>
+      <Time>2016-12-15T15:08:39.7343362-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Xml\Object.xml</Source>
+      <Name>Xml\Object</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\Object.xnb</Output>
+      <Time>2016-12-15T13:34:08.8459078-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -120,8 +174,12 @@
         <Value>2011-09-01T16:22:30-04:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2016-09-03T07:25:05.5152921-04:00</Value>
+        <Key>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvivalLibrary\bin\x86\Debug\IslandSurvivalLibrary.dll</Key>
+        <Value>2016-12-15T13:35:55.9166749-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2016-09-26T07:17:37.6288844-04:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

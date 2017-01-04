@@ -11,11 +11,14 @@ namespace IslandSurvival
     public class TerrainGenerator
     {
         private int width;
-        private int height;
+        private int  height;
         private int seed;
 
         static int[,] mapData;
-        static List<Material> materials = new List<Material>(); 
+
+        public float light; 
+        static List<Material> materials = new List<Material>();
+        static List<Material> rawMaterials = new List<Material>(); 
         
         public List<Texture2D> textures = new List<Texture2D>();
 
@@ -37,6 +40,19 @@ namespace IslandSurvival
             return materials; 
         }
 
+        public static void DamageMaterial(int index, int ammount)
+        {
+            if (materials.Count > 0)
+            {
+                materials[index].Damage((byte)ammount);
+            }
+        }
+
+        public static void DropMaterial(Vector2 position, string name)
+        {
+            rawMaterials.Add(new MaterialType(name, 10).NewMaterial(position)); 
+        }
+
         public TerrainGenerator(int width, int height, int seed)
         {
             this.width = width;
@@ -52,9 +68,9 @@ namespace IslandSurvival
             textures.Add(content.Load<Texture2D>("SandTile1"));
             textures.Add(content.Load<Texture2D>("Grass1"));
             textures.Add(content.Load<Texture2D>("DryTile2"));
+            textures.Add(content.Load<Texture2D>("tree"));
 
-            
-            textures.Add(content.Load<Texture2D>("tree")); 
+            textures.Add(content.Load<Texture2D>("raw_wood")); 
 
             MapGeneration(width, height);
 
@@ -69,6 +85,14 @@ namespace IslandSurvival
                     }
                 }
             }
+
+            Console.WriteLine("Finished Generating Terrain");
+            Console.WriteLine("Tile Count: "+mapData.Length.ToString());
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            light = 1;// ((float)Math.Sin((float)gameTime.TotalGameTime.Seconds + 80) * 5);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -80,22 +104,39 @@ namespace IslandSurvival
                     
                     if (mapData[x, y] != 0)
                     {
-                        spriteBatch.Draw(textures[mapData[x, y]], new Vector2(x * 32, y * 32), Color.White);
+                        spriteBatch.Draw(textures[mapData[x, y]], new Vector2(x * 32, y * 32), Color.White * light);
                     }
-                                        
+                    
                 }
             }
-
-            
         }
-
+                
         public void DrawTrees(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < materials.Count; i++)
+            if (materials.Count > 0)
             {
-                if (materials[i].GetId() == 1)
+                for (int i = 0; i < materials.Count; i++)
                 {
-                    spriteBatch.Draw(this.textures[4], materials[i].position, Color.White);
+                    
+                    if (materials[i].GetId() == 1)
+                    {
+                        spriteBatch.Draw(this.textures[4], materials[i].position, Color.White * light);
+                    }
+
+                    if (!materials[i].alive)
+                    {
+                        materials.RemoveAt(i);
+                    }
+                }
+            }
+        }
+        public void DrawMaterials(SpriteBatch spritebatch)
+        {
+            if(rawMaterials.Count > 0)
+            {
+                for(int i = 0; i < rawMaterials.Count; i++)
+                {
+                    spritebatch.Draw(this.textures[rawMaterials[i].GetId()], rawMaterials[i].position, Color.White); 
                 }
             }
         }
@@ -142,7 +183,7 @@ namespace IslandSurvival
                         // loads trees
                         if (random.Next() % 3 == 0)
                         {
-                            materials.Add(new MaterialType("Tree", (byte)random.Next(5, 20)).NewMaterial(new Vector2(x * 32 + (random.Next(-25, 25)), y * 32 + (random.Next(-25, 25))))); 
+                            materials.Add(new MaterialType("Tree", (byte)random.Next(5, 20)).NewMaterial(new Vector2(x * 32 + (random.Next(-25, 25)) , y * 32 + (random.Next(-25, 25))))); 
                             
                             trees++; 
                             

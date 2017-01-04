@@ -1,7 +1,9 @@
 -- Tree 
 Id = 1
-health = 10
+health = 10; 
+alive = true;
 
+ 
 function starHealtht ()
 	return 10
 end

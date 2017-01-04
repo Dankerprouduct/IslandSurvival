@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="IslandSurvivalLibrary.Object[]">
+    
+    <Item>
+      <name>Hammer</name>
+      <id>0</id>
+      <type>Tool</type>
+    </Item>
+
+    <Item>
+      <name>Pickaxe</name>
+      <id>1</id>
+      <type>Tool</type>
+    </Item>
+
+    <Item>
+      <name>Axe</name>
+      <id>2</id>
+      <type>Tool</type>
+    </Item>
+
+    <Item>
+      <name>Empty</name>
+      <id>3</id>
+      <type>Nothing</type>
+    </Item>
+    
+  </Asset>
+</XnaContent>

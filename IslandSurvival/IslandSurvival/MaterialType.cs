@@ -10,13 +10,19 @@ namespace IslandSurvival
     {
         private string name;
         private byte ammount;
-        
+        private int type; 
+
         public MaterialType(string name, byte ammount)
         {
             this.name = name;
             this.ammount = ammount;
         }
 
+        public MaterialType(int type, byte ammount = 1)
+        {
+            this.type = type; 
+            this.ammount = ammount;
+        }
         public Material NewMaterial()
         {
             MaterialType materialRef = this; 
@@ -27,7 +33,11 @@ namespace IslandSurvival
             MaterialType materialRef = this;
             return new Material(ref materialRef, position); 
         }
-
+        public Material NewMaterial(int type, int ammount, Vector2 position)
+        {
+            MaterialType materialRef = this;
+            return new Material(ref materialRef, type, position);
+        }
 
         public string GetName ()
         {

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <!-- TODO: replace this Asset with your own XML asset data. -->
+  <Asset Type="IslandSurvivalLibrary.Name[]">
+
+    <Item>
+      <name>David</name>
+    </Item>
+    <Item>
+      <name>Ihmil</name>
+    </Item>
+    <Item>
+      <name>Marcello</name>
+    </Item>
+    <Item>
+      <name>Gopi</name>
+    </Item>
+    <Item>
+      <name>Darren</name>
+    </Item>
+    <Item>
+      <name>Chelsie</name>
+    </Item>
+    <Item>
+      <name>Denae</name>
+    </Item>
+    <Item>
+      <name>Adriana</name>
+    </Item>
+    <Item>
+      <name>Zaria</name>
+    </Item>
+    <Item>
+      <name>Kennedy</name>
+    </Item>
+    <Item>
+      <name>Josh</name>
+    </Item>
+    <Item>
+      <name>Clyde</name>
+    </Item>
+    <Item>
+      <name>Zhanae</name>
+    </Item>
+    <Item>
+      <name>Tom</name>
+    </Item>
+    <Item>
+      <name>James</name>
+    </Item>
+    <Item>
+      <name>Kevin</name>
+    </Item>
+    <Item>
+      <name>Donald</name>
+    </Item>
+    <Item>
+      <name>Robert</name>
+    </Item>
+    <Item>
+      <name>Michael</name>
+    </Item>
+    <Item>
+      <name>William</name>
+    </Item>
+    <Item>
+      <name>James</name>
+    </Item>
+    <Item>
+      <name>Maria</name>
+    </Item>
+    <Item>
+      <name>Susan</name>
+    </Item>
+    <Item>
+      <name>Carol</name>
+    </Item>
+    <Item>
+      <name>Ruth</name>
+    </Item>
+    <Item>
+      <name>Sharon</name>
+    </Item>
+    
+  </Asset>
+</XnaContent>

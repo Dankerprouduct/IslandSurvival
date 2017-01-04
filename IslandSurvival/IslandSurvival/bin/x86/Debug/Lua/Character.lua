@@ -13,4 +13,8 @@ thirst = math.random((maxThirst / 2), maxThirst)
 maxSickness = math.random(75, 150)
 sickness = 0
 
+strength = math.random(0, 4); 
+speed = math.random(0, 4);
+dexterity = math.random(0, 4); 
+intellect = math.random(0, 4); 
  

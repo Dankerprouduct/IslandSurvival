@@ -14,10 +14,12 @@ namespace IslandSurvival
         private string name;
         private byte ammount;
 
+        private int health; 
         private byte MaterialId;
-        public Vector2 position; 
+        public Vector2 position;
+        public bool alive;
+        public int index; 
 
-        
         public Material(ref MaterialType materialType)
         {
             name = materialType.GetName();
@@ -35,6 +37,11 @@ namespace IslandSurvival
             LoadLua(name);   
             
         }
+        public Material(ref MaterialType materialType, int type, Vector2 positon)
+        {
+           
+        }
+
 
         public int GetId()
         {
@@ -44,20 +51,39 @@ namespace IslandSurvival
         {
             Console.WriteLine(text); 
         }
+        
         private void LoadLua(string fileName)
         {
             Lua lua = new Lua();
             lua.DoFile("Lua/" + fileName +".lua");
             MaterialId = (byte)(double)lua["Id"];
-            //lua.RegisterFunction("WriteToConsole", this, this.GetType().GetMethod("WriteToConsole"));
+            health = (int)(double)lua["health"];
+            alive = (bool)lua["alive"]; 
             
             lua.Close();
             lua.Dispose();
             
         }
-
-
-
+        public Vector2 MapPosition
+        {
+            get
+            {
+                return new Vector2((int)position.X / 32, (int)position.Y / 32);
+            }
+        }
+        public void Damage(int damage)
+        {
+            
+            health = (int)(health - damage);
+            
+            if (health <= 0)
+            {
+                
+                alive = false;
+                TerrainGenerator.DropMaterial(position, "raw_"+name); 
+            }
+        }
+               
 
     }
 }

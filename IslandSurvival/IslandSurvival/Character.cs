@@ -28,6 +28,11 @@ namespace IslandSurvival
 
         public byte happiness;
 
+        public byte strength;
+        public byte speed;
+        public byte dexterity;
+        public byte intellect; 
+
         Lua lua = new Lua();
         public Character(string name)
         {
@@ -49,8 +54,14 @@ namespace IslandSurvival
             thirst = (byte)(double)lua["thirst"];
 
             maxSickness = (byte)(double)lua["maxSickness"];
-            sickness = (byte)(double)lua["sickness"];    
+            sickness = (byte)(double)lua["sickness"];
+
+            strength = (byte)(double)lua["strength"];
+            speed = (byte)(double)lua["speed"];
+            dexterity = (byte)(double)lua["dexterity"];
+            intellect = (byte)(double)lua["intellect"]; 
             
+            this.name = name; 
                                            
         
         }

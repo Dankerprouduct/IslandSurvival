@@ -10,9 +10,9 @@ namespace IslandSurvival
     public class Tree
     {
         private Vector2 position;
+        private Vector2 mapPosition; 
         private float rotation;
-        private bool Alive;
-        private byte health = 25;
+
         public byte treeType; 
 
         public Tree(Vector2 position, int treeType ,float rotation)
@@ -20,6 +20,7 @@ namespace IslandSurvival
             this.treeType = (byte)treeType; 
             this.position = position;
             this.rotation = rotation; 
+            this.mapPosition = new Vector2((int)position.X / 32, (int)position.Y / 32);
         }
         public byte TreeType
         {
@@ -33,6 +34,14 @@ namespace IslandSurvival
             get
             {
                 return position;
+            }
+        }
+
+        public Vector2 MapPosition
+        {
+            get
+            {
+                return new Vector2((int)Position.X / 32, (int)Position.Y / 32); 
             }
         }
 
