@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,193 +8,153 @@ using Microsoft.Xna.Framework.Content;
 
 namespace IslandSurvival
 {
-    public class TerrainGenerator
+    public class World
     {
         private int width;
-        private int  height;
+        private int height;
         private int seed;
 
-        static int[,] mapData;
+        #region Layers
+        /// <summary>
+        /// Layer 1 is where all of the structures are kept (Buildings, Trees, Rocks, etc).
+        /// </summary>
+        public int[,] layer1;
+        /// <summary>
+        /// Layer 2 is where players, NPCs and structures from Layer 1 drop things to.
+        /// </summary>
+        public int[,] layer2;
+        /// <summary>
+        /// Layer 3 is where the terrain is kept (Regular Tiles)
+        /// </summary>
+        public int[,] layer3;
+        #endregion
 
-        public float light; 
-        static List<Material> materials = new List<Material>();
-        static List<Material> rawMaterials = new List<Material>(); 
-        
-        public List<Texture2D> textures = new List<Texture2D>();
+        private List<Texture2D> Layer3Textures;
+        private List<Texture2D> Layer2Textures;
+        private List<Texture2D> Layer1Textures; 
 
-        public static List<Vector2> startPositions = new List<Vector2>(); 
 
-        public static int[,] GetMap()
-        {
-
-            return mapData; 
-        }
-
-        public static Vector2 GetStartPositions()
-        {
-            Random random = new Random();
-            return startPositions[random.Next(0, startPositions.Count())]; 
-        }
-        public static List<Material> GetMaterials()
-        {
-            return materials; 
-        }
-
-        public static void DamageMaterial(int index, int ammount)
-        {
-            if (materials.Count > 0)
-            {
-                materials[index].Damage((byte)ammount);
-            }
-        }
-
-        public static void DropMaterial(Vector2 position, string name)
-        {
-            rawMaterials.Add(new MaterialType(name, 10).NewMaterial(position)); 
-        }
-
-        public TerrainGenerator(int width, int height, int seed)
+        public World(int width = 500, int height = 500, int seed = 0)
         {
             this.width = width;
             this.height = height;
             this.seed = seed;
-            mapData = new int[width, height];
 
+            layer1 = new int[width, height];
+            layer2 = new int[width, height];
+            layer3 = new int[width, height]; 
         }
 
         public void LoadContent(ContentManager content)
         {
-            textures.Add(content.Load<Texture2D>("Water1"));
-            textures.Add(content.Load<Texture2D>("SandTile1"));
-            textures.Add(content.Load<Texture2D>("Grass1"));
-            textures.Add(content.Load<Texture2D>("DryTile2"));
-            textures.Add(content.Load<Texture2D>("tree"));
+            Layer3Textures = new List<Texture2D>();
+            Layer3Textures.Add(content.Load<Texture2D>("Water1"));
+            Layer3Textures.Add(content.Load<Texture2D>("SandTile1"));
+            Layer3Textures.Add(content.Load<Texture2D>("Grass1"));
+            Layer3Textures.Add(content.Load<Texture2D>("DryTile2"));
 
-            textures.Add(content.Load<Texture2D>("raw_wood")); 
+            Layer2Textures = new List<Texture2D>();
+            Layer2Textures.Add(content.Load<Texture2D>("raw_wood"));
 
-            MapGeneration(width, height);
+            Layer1Textures = new List<Texture2D>();
+            Layer1Textures.Add(content.Load<Texture2D>("tree"));
+            
 
-            for(int x =0; x < mapData.GetLength(0); x++)
-            {
-                for(int y =0; y < mapData.GetLength(1); y++)
-                {
-                    if(mapData[x,y] != 0)
-                    {
-                        startPositions.Add(new Vector2(x * 32, y * 32)); 
-                        break;
-                    }
-                }
-            }
 
-            Console.WriteLine("Finished Generating Terrain");
-            Console.WriteLine("Tile Count: "+mapData.Length.ToString());
         }
 
-        public void Update(GameTime gameTime)
-        {
-            light = 1;// ((float)Math.Sin((float)gameTime.TotalGameTime.Seconds + 80) * 5);
-        }
 
-        public void Draw(SpriteBatch spriteBatch)
+
+        #region Drawing
+        public void DrawLayer1(SpriteBatch spriteBatch)
         {
-            for(int x =0; x < width; x++)
+            for (int y = 0; y < height; y++)
             {
-                for(int y = 0; y< height; y++)
+                for (int x = 0; x < width; x++)
                 {
-                    
-                    if (mapData[x, y] != 0)
-                    {
-                        spriteBatch.Draw(textures[mapData[x, y]], new Vector2(x * 32, y * 32), Color.White * light);
-                    }
-                    
+                    spriteBatch.Draw(Layer1Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White);
                 }
             }
         }
-                
-        public void DrawTrees(SpriteBatch spriteBatch)
-        {
-            if (materials.Count > 0)
-            {
-                for (int i = 0; i < materials.Count; i++)
-                {
-                    
-                    if (materials[i].GetId() == 1)
-                    {
-                        spriteBatch.Draw(this.textures[4], materials[i].position, Color.White * light);
-                    }
 
-                    if (!materials[i].alive)
-                    {
-                        materials.RemoveAt(i);
-                    }
-                }
-            }
-        }
-        public void DrawMaterials(SpriteBatch spritebatch)
+        public void DrawLayer2(SpriteBatch spriteBatch)
         {
-            if(rawMaterials.Count > 0)
+            for (int y = 0; y < height; y++)
             {
-                for(int i = 0; i < rawMaterials.Count; i++)
+                for (int x = 0; x < width; x++)
                 {
-                    spritebatch.Draw(this.textures[rawMaterials[i].GetId()], rawMaterials[i].position, Color.White); 
+                    spriteBatch.Draw(Layer2Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White);
                 }
             }
         }
-        
-        #region // noise 
+
+        public void DrawLayer3(SpriteBatch spriteBatch)
+        {
+            for(int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    spriteBatch.Draw(Layer3Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White); 
+                }
+            }
+        }
+        #endregion
+
+
+        #region  World Generation
 
         void MapGeneration(int width, int height)
         {
-            
+
             float[,] preGenMap = WhiteNoise(width, height);
-            
+
             int octave = 6;
 
             float[,] postGenMap = GeneratePerlinNoise(preGenMap, octave);
-            
+
 
             Random random = new Random(seed);
 
-            int trees = 0; 
+            int trees = 0;
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    
+
                     if (postGenMap[x, y] <= 0 && postGenMap[x, y] >= .3f)
                     {
-                        mapData[x, y] = 0;
+                        layer3[x, y] = 0;
                     }
                     if (postGenMap[x, y] <= .6f && postGenMap[x, y] >= .3f)
                     {
-                        mapData[x, y] = 1;
-                        
+                        layer3[x, y] = 1;
+
                         if (postGenMap[x, y] <= .65f && postGenMap[x, y] >= .55f)
                         {
-                             mapData[x, y] = 3;
+                            layer3[x, y] = 3;
                         }
-                        
+
                     }
                     if (postGenMap[x, y] <= 1f && postGenMap[x, y] >= .6f)
                     {
-                        mapData[x, y] = 2;
+                        layer3[x, y] = 2;
 
 
                         // loads trees
                         if (random.Next() % 3 == 0)
                         {
-                            materials.Add(new MaterialType("Tree", (byte)random.Next(5, 20)).NewMaterial(new Vector2(x * 32 + (random.Next(-25, 25)) , y * 32 + (random.Next(-25, 25))))); 
-                            
-                            trees++; 
-                            
+                            //materials.Add(new MaterialType("Tree", (byte)random.Next(5, 20)).NewMaterial(new Vector2(x * 32 + (random.Next(-25, 25)), y * 32 + (random.Next(-25, 25)))));
+
+                            trees++;
+
                         }
 
                     }
-                    
-                    
+
+
                 }
             }
-            Console.WriteLine(trees); 
+            Console.WriteLine(trees);
 
 
 
@@ -265,7 +225,7 @@ namespace IslandSurvival
 
 
             // reg value = .5f
-            float persistence = .5f; 
+            float persistence = .5f;
 
             for (int i = 0; i < OctaveCount; i++)
             {
@@ -274,7 +234,7 @@ namespace IslandSurvival
             }
 
             float[,] perlinNoise = new float[width, height];
-            float amplitude = .5f; 
+            float amplitude = .5f;
             float totalAmp = 0.0f;
 
 
@@ -298,11 +258,11 @@ namespace IslandSurvival
                 for (int y = 0; y < height; y++)
                 {
                     perlinNoise[x, y] /= totalAmp;
-                    perlinNoise[x, y] = makeMask(width, height, x, y, perlinNoise[x, y]); 
+                    perlinNoise[x, y] = makeMask(width, height, x, y, perlinNoise[x, y]);
                 }
             }
-            
-            
+
+
             return perlinNoise;
         }
 
@@ -316,13 +276,13 @@ namespace IslandSurvival
             float dx = 2 * x / width - 1;
             float dy = 2 * y / height - 1;
             // at this point 0 <= dx <= 1 and 0 <= dy <= 1
-            return (float)Math.Sqrt(dx * dx + dy * dy); 
-            
+            return (float)Math.Sqrt(dx * dx + dy * dy);
+
         }
 
         public static float makeMask(int width, int height, int posX, int posY, float oldValue)
         {
-            
+
             int minVal = (((height + width) / 2) / 100 * 2);
             int maxVal = (((height + width) / 2) / 100 * 25);
             if (getDistanceToEdge(posX, posY, width, height) <= minVal)
@@ -362,6 +322,5 @@ namespace IslandSurvival
             return min;
         }
         #endregion
-
     }
 }

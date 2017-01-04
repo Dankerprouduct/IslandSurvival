@@ -95,8 +95,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="SurvivorManager.cs" />
-    <Compile Include="TerrainGenerator.cs" />
     <Compile Include="Tree.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
