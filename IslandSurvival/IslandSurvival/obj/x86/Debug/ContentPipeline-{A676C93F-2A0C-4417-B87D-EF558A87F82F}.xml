@@ -136,6 +136,33 @@
       <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\Object.xnb</Output>
       <Time>2016-12-15T13:34:08.8459078-05:00</Time>
     </Item>
+    <Item>
+      <Source>StoneWall.png</Source>
+      <Name>StoneWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\StoneWall.xnb</Output>
+      <Time>2017-01-04T17:16:26.7676731-05:00</Time>
+    </Item>
+    <Item>
+      <Source>WoodWall.png</Source>
+      <Name>WoodWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\WoodWall.xnb</Output>
+      <Time>2017-01-04T17:16:02.153535-05:00</Time>
+    </Item>
+    <Item>
+      <Source>stone.png</Source>
+      <Name>stone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\stone.xnb</Output>
+      <Time>2017-01-04T17:20:12.4630278-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{A676C93F-2A0C-4417-B87D-EF558A87F82F}</ContentProjectGUID>

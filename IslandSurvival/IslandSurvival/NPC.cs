@@ -35,7 +35,8 @@ namespace IslandSurvival
             intellect = npcCreator.intellect;
             dexterity = npcCreator.dexterity;
             inventory = new Inventory(4);
-            
+            taskQueue = new List<Command>();
+            tasks = new List<Group.Task>(); 
         }
         private void LoadLua()
         {
@@ -57,9 +58,7 @@ namespace IslandSurvival
             lua.RegisterFunction("Kill", this, this.GetType().GetMethod("Kill"));
 
         }
-
-
-
+        
         #region lua functions
         private void RefreshTasks()
         {
@@ -218,8 +217,7 @@ namespace IslandSurvival
         }
         #endregion
         #endregion
-
-        
+              
 
 
 

@@ -58,3 +58,6 @@ C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvi
 C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\Jobs.xnb
 C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\Xml\Object.xnb
 C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Lua\GenerateNPC.lua
+C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\StoneWall.xnb
+C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\WoodWall.xnb
+C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\stone.xnb

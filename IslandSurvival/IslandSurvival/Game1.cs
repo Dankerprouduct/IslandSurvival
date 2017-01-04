@@ -89,9 +89,9 @@ namespace IslandSurvival
             //survivors = new SurvivorManager();
             //survivors.LoadContent(Content);
 
-           // lines = new Line[survivors.survivors.Count];
-           // groupLines = new Line[survivors.survivors.Count]; 
-            
+            // lines = new Line[survivors.survivors.Count];
+            // groupLines = new Line[survivors.survivors.Count]; 
+
             /*
             for (int i = 0; i < lines.Length; i++)
             {
@@ -99,6 +99,7 @@ namespace IslandSurvival
               //  groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice); 
             }
             */
+            
         }
 
         protected override void UnloadContent()

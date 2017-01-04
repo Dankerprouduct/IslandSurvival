@@ -57,20 +57,29 @@ namespace IslandSurvival
 
         public void LoadContent(ContentManager content)
         {
+            #region Layer 3 Textures
             Layer3Textures = new List<Texture2D>();
             Layer3Textures.Add(content.Load<Texture2D>("Water1"));
             Layer3Textures.Add(content.Load<Texture2D>("SandTile1"));
             Layer3Textures.Add(content.Load<Texture2D>("Grass1"));
             Layer3Textures.Add(content.Load<Texture2D>("DryTile2"));
+            
+            #endregion
 
+            #region Layer 2 Textures
             Layer2Textures = new List<Texture2D>();
             Layer2Textures.Add(content.Load<Texture2D>("raw_wood"));
+            #endregion
 
+            #region Layer 1 Textures
             Layer1Textures = new List<Texture2D>();
             Layer1Textures.Add(content.Load<Texture2D>("tree"));
-
+            Layer1Textures.Add(content.Load<Texture2D>("stone")); // REPLACE THIS TREE WITH STONE
+            Layer1Textures.Add(content.Load<Texture2D>("WoodWall"));
+            Layer1Textures.Add(content.Load<Texture2D>("StoneWall"));
+            #endregion
             MapGeneration(width, height); 
-
+            
         }
 
         public static int[,] GetMap() // PathFinding uses this
@@ -98,22 +107,79 @@ namespace IslandSurvival
             layer2[x, y] = 101;
             return tempId;  
         }
-        #endregion 
+        #endregion
 
         #region Drawing
+
+        #region Layer 1
         public void DrawLayer1(SpriteBatch spriteBatch)
+        {
+            DrawStone(spriteBatch);
+            DrawShelters(spriteBatch); 
+            DrawTrees(spriteBatch);
+            
+        }
+
+        private void DrawTrees(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (layer1[x, y] != 101)
+                    if (layer1[x, y] == 0)
                     {
-                        spriteBatch.Draw(Layer1Textures[layer1[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                        spriteBatch.Draw(Layer1Textures[layer1[x, y]],
+                                new Rectangle(32 * x, 32 * y,
+                                Layer1Textures[layer1[x, y]].Width,
+                                Layer1Textures[layer1[x, y]].Height),
+                                null, Color.White, 0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0f);
                     }
                 }
             }
         }
+        private void DrawStone(SpriteBatch spriteBatch)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (layer1[x, y] == 1)
+                    {
+                        spriteBatch.Draw(Layer1Textures[layer1[x, y]],
+                                new Rectangle(32 * x, 32 * y,
+                                Layer1Textures[layer1[x, y]].Width,
+                                Layer1Textures[layer1[x, y]].Height),
+                                null, Color.White, 0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0f);
+                    }
+                }
+            }
+        }
+        private void DrawShelters(SpriteBatch spriteBatch)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (layer1[x, y] != 0 && layer1[x,y] != 1 && layer1[x,y] != 101)
+                    {
+                        spriteBatch.Draw(Layer1Textures[layer1[x, y]],
+                                new Rectangle(32 * x, 32 * y,
+                                Layer1Textures[layer1[x, y]].Width,
+                                Layer1Textures[layer1[x, y]].Height),
+                                null, Color.White, 0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0f);
+                    }
+                }
+            }
+        }
+        
+
+        #endregion
 
         public void DrawLayer2(SpriteBatch spriteBatch)
         {
@@ -123,7 +189,13 @@ namespace IslandSurvival
                 {
                     if (layer2[x,y] != 101)
                     {
-                        spriteBatch.Draw(Layer2Textures[layer2[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                        spriteBatch.Draw(Layer2Textures[layer2[x, y]],
+                                new Rectangle(32 * x, 32 * y,
+                                Layer2Textures[layer2[x, y]].Width,
+                                Layer2Textures[layer2[x, y]].Height),
+                                null, Color.White, 0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0f);
                     }
                 }
             }
@@ -137,7 +209,13 @@ namespace IslandSurvival
                 {
                     if (layer3[x, y] != 101)
                     {
-                        spriteBatch.Draw(Layer3Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                        spriteBatch.Draw(Layer3Textures[layer3[x, y]],
+                                new Rectangle(32 * x, 32 * y,
+                                Layer3Textures[layer3[x, y]].Width,
+                                Layer3Textures[layer3[x, y]].Height),
+                                null, Color.White, 0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0f);
                     }
                 }
             }
@@ -171,23 +249,33 @@ namespace IslandSurvival
                     if (postGenMap[x, y] <= .6f && postGenMap[x, y] >= .3f)
                     {
                         layer3[x, y] = 1;
-
+                                               
                         if (postGenMap[x, y] <= .65f && postGenMap[x, y] >= .55f)
                         {
                             layer3[x, y] = 3;
+                            
                         }
 
                     }
                     if (postGenMap[x, y] <= 1f && postGenMap[x, y] >= .6f)
                     {
                         layer3[x, y] = 2;
-
-
                         // loads trees
                         if (random.Next() % 3 == 0)
                         {
                             
                             layer1[x, y] = 0;
+                        }
+
+                    }
+                    if (postGenMap[x, y] <= 1f && postGenMap[x, y] >= .65f)
+                    {
+                        
+                        // loads stone
+                        if (random.Next() % 8 == 0)
+                        {
+
+                            layer1[x, y] = 1;
                         }
 
                     }
