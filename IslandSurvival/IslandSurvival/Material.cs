@@ -80,7 +80,7 @@ namespace IslandSurvival
             {
                 
                 alive = false;
-                TerrainGenerator.DropMaterial(position, "raw_"+name); 
+                // TerrainGenerator.DropMaterial(position, "raw_"+name); 
             }
         }
                

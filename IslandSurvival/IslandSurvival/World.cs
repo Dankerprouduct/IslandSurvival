@@ -18,15 +18,15 @@ namespace IslandSurvival
         /// <summary>
         /// Layer 1 is where all of the structures are kept (Buildings, Trees, Rocks, etc).
         /// </summary>
-        public int[,] layer1;
+        static int[,] layer1;
         /// <summary>
         /// Layer 2 is where players, NPCs and structures from Layer 1 drop things to.
         /// </summary>
-        public int[,] layer2;
+        static int[,] layer2;
         /// <summary>
         /// Layer 3 is where the terrain is kept (Regular Tiles)
         /// </summary>
-        public int[,] layer3;
+        static int[,] layer3;
         #endregion
 
         private List<Texture2D> Layer3Textures;
@@ -34,7 +34,7 @@ namespace IslandSurvival
         private List<Texture2D> Layer1Textures; 
 
 
-        public World(int width = 500, int height = 500, int seed = 0)
+        public World(int width = 250, int height = 250, int seed = 0)
         {
             this.width = width;
             this.height = height;
@@ -43,6 +43,16 @@ namespace IslandSurvival
             layer1 = new int[width, height];
             layer2 = new int[width, height];
             layer3 = new int[width, height]; 
+
+            for(int x = 0; x < width; x++)
+            {
+                for(int y = 0; y < height; y++)
+                {
+                    layer1[x, y] = 101;
+                    layer2[x, y] = 101;
+                    layer3[x, y] = 101; 
+                }
+            }
         }
 
         public void LoadContent(ContentManager content)
@@ -58,12 +68,37 @@ namespace IslandSurvival
 
             Layer1Textures = new List<Texture2D>();
             Layer1Textures.Add(content.Load<Texture2D>("tree"));
-            
 
+            MapGeneration(width, height); 
 
         }
 
+        public static int[,] GetMap() // PathFinding uses this
+        {
+            return layer3; 
+        }
 
+        #region world interation
+        public static void Build(int x, int y, int i)
+        {
+            layer1[x,y] = i; 
+        }
+        public static void Destroy(int x, int y)
+        {
+            Drop(x, y, layer1[x, y]);
+            layer1[x, y] = 101; 
+        }
+        public static void Drop(int x, int y, int i)
+        {
+            layer2[x, y] = i; 
+        }
+        public static int Pickup(int x, int y)
+        {
+            int tempId = layer2[x, y];
+            layer2[x, y] = 101;
+            return tempId;  
+        }
+        #endregion 
 
         #region Drawing
         public void DrawLayer1(SpriteBatch spriteBatch)
@@ -72,7 +107,10 @@ namespace IslandSurvival
             {
                 for (int x = 0; x < width; x++)
                 {
-                    spriteBatch.Draw(Layer1Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                    if (layer1[x, y] != 101)
+                    {
+                        spriteBatch.Draw(Layer1Textures[layer1[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                    }
                 }
             }
         }
@@ -83,7 +121,10 @@ namespace IslandSurvival
             {
                 for (int x = 0; x < width; x++)
                 {
-                    spriteBatch.Draw(Layer2Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                    if (layer2[x,y] != 101)
+                    {
+                        spriteBatch.Draw(Layer2Textures[layer2[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                    }
                 }
             }
         }
@@ -92,15 +133,17 @@ namespace IslandSurvival
         {
             for(int y = 0; y < height; y++)
             {
-                for(int x = 0; x < width; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    spriteBatch.Draw(Layer3Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White); 
+                    if (layer3[x, y] != 101)
+                    {
+                        spriteBatch.Draw(Layer3Textures[layer3[x, y]], new Vector2(32 * x, 32 * y), Color.White);
+                    }
                 }
             }
         }
         #endregion
-
-
+        
         #region  World Generation
 
         void MapGeneration(int width, int height)
@@ -143,10 +186,8 @@ namespace IslandSurvival
                         // loads trees
                         if (random.Next() % 3 == 0)
                         {
-                            //materials.Add(new MaterialType("Tree", (byte)random.Next(5, 20)).NewMaterial(new Vector2(x * 32 + (random.Next(-25, 25)), y * 32 + (random.Next(-25, 25)))));
-
-                            trees++;
-
+                            
+                            layer1[x, y] = 0;
                         }
 
                     }

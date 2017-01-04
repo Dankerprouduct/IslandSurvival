@@ -21,7 +21,7 @@ namespace IslandSurvival
 
             public Grid(int x, int y, byte defaultValue = 0)
             {
-                int[,] tempMap = TerrainGenerator.GetMap(); 
+                int[,] tempMap = World.GetMap(); 
                 Size = new Rectangle(0, 0, x, y);
                 Weight = new byte[x, y];
 

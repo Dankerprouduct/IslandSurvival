@@ -56,7 +56,7 @@ namespace IslandSurvival
 
             Console.WriteLine("Compiled lua for " + name);
 
-            position = TerrainGenerator.GetStartPositions();
+            position = Vector2.Zero;//TerrainGenerator.GetStartPositions();
             Console.WriteLine("Group position:" + position.X/32 + " "+position.Y/32);
         }
         
@@ -71,24 +71,7 @@ namespace IslandSurvival
         {
             return tasks.Count; 
         }
-        #region // deprecated GetTask()
-        /*
-        public Task GetTask()
-        {
-            // add sort method here with priority 1 at top
-            
-            if(tasks.Count > 0)
-            {
-                Task tempTask = tasks[0];
-               // tasks.RemoveAt(0);
-                return tempTask; 
-            }
-            Console.WriteLine("There are " + tasks.Count + " tasks. Gave empty Task");
-            return new Task(); 
-        }
-        */
-        #endregion
-         
+                 
         public void AddMaterials(int type = 1, int ammount = 10)
         {
             switch (type)
@@ -128,7 +111,7 @@ namespace IslandSurvival
 
             switch (task.job.name)
             {
-                
+                /*
                 case "Forestry":
                     {
                         // wood
@@ -174,7 +157,7 @@ namespace IslandSurvival
 
                         break;    
                     }
-
+                    */
 
             }
 

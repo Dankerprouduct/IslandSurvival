@@ -32,7 +32,7 @@ namespace IslandSurvival
             {
                 scale -= .01f; 
             }
-            Tree tree = new Tree(Vector2.Zero, 0, 0);
+           // Tree tree = new Tree(Vector2.Zero, 0, 0);
              
             if(scale >= 1)
             {

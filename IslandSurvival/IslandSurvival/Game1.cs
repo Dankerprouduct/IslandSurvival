@@ -19,7 +19,7 @@ namespace IslandSurvival
         SpriteBatch spriteBatch;
 
         Camera camera;
-        TerrainGenerator terrainGenerator;
+        World world; 
         public int SCREEN_WIDTH = 1280;
         public int SCREEN_HEIGHT;
 
@@ -40,7 +40,7 @@ namespace IslandSurvival
         bool paused = false;
 
 
-        SurvivorManager survivors;
+       // SurvivorManager survivors;
         Line[] lines;
         Line[] groupLines; 
         public static Vector2 GetMousePosition()
@@ -78,25 +78,27 @@ namespace IslandSurvival
 
             string seed = "iuhygfdxs";//"kljkbj";
             Console.WriteLine(seed.GetHashCode());
-            terrainGenerator = new TerrainGenerator(sizeX, sizeY, seed.GetHashCode());
-            terrainGenerator.LoadContent(Content);
+            world = new World();
+            world.LoadContent(Content); 
+
             camera = new Camera(GraphicsDevice.Viewport);
             player = new Player(new Vector2((0 * 2) / 2, (0 * 32) / 2));
 
             spriteFont = Content.Load<SpriteFont>("SpriteFont1");
 
-            survivors = new SurvivorManager();
-            survivors.LoadContent(Content);
+            //survivors = new SurvivorManager();
+            //survivors.LoadContent(Content);
 
-            lines = new Line[survivors.survivors.Count];
-            groupLines = new Line[survivors.survivors.Count]; 
+           // lines = new Line[survivors.survivors.Count];
+           // groupLines = new Line[survivors.survivors.Count]; 
             
-
+            /*
             for (int i = 0; i < lines.Length; i++)
             {
-                lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
-                groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice); 
+             //   lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
+              //  groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice); 
             }
+            */
         }
 
         protected override void UnloadContent()
@@ -115,23 +117,24 @@ namespace IslandSurvival
 
             Game1 game = this;
 
-            terrainGenerator.Update(gameTime);
+            
 
             mouseState = Mouse.GetState();
             mousePos = new Vector2(mouseState.X, mouseState.Y);
             worldPos = Vector2.Transform(mousePos, Matrix.Invert(camera.transform));
 
-
+            /*
             for (int i = 0; i < lines.Length; i++)
             {
-                lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
-                lines[i].Update();
-                groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice);
-                groupLines[i].Update(); 
+               // lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
+               // lines[i].Update();
+               // groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice);
+               // groupLines[i].Update(); 
             }
+            */
             if (keyboardState.IsKeyDown(Keys.C) && oldKeyboardState.IsKeyUp(Keys.C))
             {
-                survivors.CompileLua();
+              //  survivors.CompileLua();
             }
             if (keyboardState.IsKeyDown(Keys.Space) && oldKeyboardState.IsKeyUp(Keys.Space))
             {
@@ -140,7 +143,7 @@ namespace IslandSurvival
 
             if (!paused)
             {
-                survivors.Update();
+                //survivors.Update();
             }
 
 
@@ -159,23 +162,26 @@ namespace IslandSurvival
                 null, null, null, camera.transform);
 
 
-            terrainGenerator.Draw(spriteBatch);
+            //terrainGenerator.Draw(spriteBatch);
 
+            world.DrawLayer3(spriteBatch); 
             //spriteBatch.Draw(texture, Adam.GetPosition(), Color.White);
 
-
+            /*
             for (int i = 0; i < lines.Length; i++)
             {
                 lines[i].Draw(spriteBatch);
                 groupLines[i].Draw(spriteBatch); 
             }
 
+            */
 
+            // terrainGenerator.DrawMaterials(spriteBatch); 
+            world.DrawLayer2(spriteBatch);
+            //survivors.Draw(spriteBatch);
 
-            terrainGenerator.DrawMaterials(spriteBatch); 
-            survivors.Draw(spriteBatch);
-                        
-            terrainGenerator.DrawTrees(spriteBatch);
+            // terrainGenerator.DrawTrees(spriteBatch);
+            world.DrawLayer1(spriteBatch); 
             fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 

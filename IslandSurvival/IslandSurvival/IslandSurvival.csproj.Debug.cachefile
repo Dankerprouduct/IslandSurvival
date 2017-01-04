@@ -15,7 +15,7 @@ Content\Xml\Jobs.xnb
 Content\Xml\Object.xnb
 Lua\Character.lua
 Lua\Tree.lua
-Lua\SurvivorLogic.lua
 Lua\Group.lua
 Lua\idle.lua
 Lua\raw_Tree.lua
+Lua\GenerateNPC.lua

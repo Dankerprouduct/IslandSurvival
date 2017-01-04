@@ -190,34 +190,36 @@ namespace IslandSurvival
             return position;
         }
 
-        private void Pickup(int x, int y)
+
+        #region world interation
+        private int Pickup(int x, int y)
         {
-            
+            return World.Pickup(x, y); 
         }
 
-        private void Build(int x, int y)
+        private void Build(int x, int y, int i)
         {
-
+            World.Build(x, y, i); 
         }
 
         private void Destroy(int x, int y)
         {
-
+            World.Destroy(x, y);
         }
         
-        private void Drop(int x, int y)
+        private void Drop(int x, int y, int i)
         {
-            
+            World.Drop(x, y, i); 
         }
 
         private void Kill(int i)
         {
 
         }
-
+        #endregion
         #endregion
 
-
+        
 
 
 

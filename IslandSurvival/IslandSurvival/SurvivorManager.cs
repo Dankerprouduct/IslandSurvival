@@ -11,7 +11,7 @@ namespace IslandSurvival
     public class SurvivorManager
     {
 
-        public List<Survivor> survivors = new List<Survivor>();
+        //public List<Survivor> survivors = new List<Survivor>();
         public List<Group> groups = new List<Group>();
         IslandSurvivalLibrary.Name[] names; 
         Texture2D texture;
@@ -39,11 +39,11 @@ namespace IslandSurvival
             {
                 Random random = new Random(i);
                 
-                survivors.Add(new Character(names[i % names.Length].name).NewSurvivor());
-                survivors[i].LoadContent(content);
+                // survivors.Add(new Character(names[i % names.Length].name).NewSurvivor());
+                //survivors[i].LoadContent(content);
             }
                        
-
+            /*
             for(int i = 0; i < survivors.Count; i++)
             {
                 survivors[i].SetGroup(groups[0]);
@@ -58,7 +58,7 @@ namespace IslandSurvival
                 survivors[i].SetPosition(TerrainGenerator.GetStartPositions()); 
             }
 
-
+            */
             
             CompileLua(); 
         }
@@ -71,13 +71,13 @@ namespace IslandSurvival
                 groups[i].Update();
                 
             }
-
+            /*
             for (int i = 0; i < survivors.Count(); i++)
             {
                 survivors[i].Update(); 
                 
             }
-
+            */
             
         }
         public void CompileLua()
@@ -86,19 +86,20 @@ namespace IslandSurvival
             {
                 groups[i].CompileLua();
             }
-
+            /*
             for (int i = 0; i < survivors.Count(); i++)
             {
                 survivors[i].CompileLua(); 
                 
             }
-
+            */
             
             Console.WriteLine("Updated Lua Scripts"); 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            /*
             for (int i = 0; i < survivors.Count(); i++)
             {
                 spriteBatch.Draw(texture, survivors[i].GetPosition(), Color.White);
@@ -110,6 +111,7 @@ namespace IslandSurvival
                     new Vector2(survivors[i].GetPosition().X - (font.MeasureString(survivors[i].GetMapPosition().ToString()).X / 2) ,
                     survivors[i].GetPosition().Y - 25), Color.OrangeRed);
             }
+            */
         }
     }
 }
