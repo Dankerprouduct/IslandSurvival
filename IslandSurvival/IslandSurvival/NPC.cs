@@ -146,6 +146,7 @@ namespace IslandSurvival
             return new Vector2(navPoints[navPoints.Count - 1].X * 32, navPoints[navPoints.Count - 1].Y * 32);
         }
 
+
         public void MoveTo(int x, int y, float ammount)
         {
             position = Vector2.Lerp(position, new Vector2(x, y), ammount); 
