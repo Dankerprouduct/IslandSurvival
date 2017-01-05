@@ -28,7 +28,7 @@ namespace IslandSurvival
         public List<Task> tasks = new List<Task>();
 
         private int wealth;
-        private int wood = 0; 
+        private int wood = 51; 
         private int stone = 0;
         private int age = 1;
 
@@ -39,6 +39,7 @@ namespace IslandSurvival
         {
             this.content = content; 
             name = group_name;
+            
         }
         public void CompileLua()
         {
@@ -51,11 +52,12 @@ namespace IslandSurvival
 
             jobs = content.Load<IslandSurvivalLibrary.Job[]>("XML/Jobs");
             inventory = new Inventory(100);
+            inventory.LoadContent(content);
             lua.DoFile("Lua/Group.lua");
             lua.GetFunction("Update").Call();
 
             Console.WriteLine("Compiled lua for " + name);
-
+            
             position = Vector2.Zero;//TerrainGenerator.GetStartPositions();
             Console.WriteLine("Group position:" + position.X/32 + " "+position.Y/32);
         }
@@ -64,7 +66,17 @@ namespace IslandSurvival
         public void Update()
         {
             lua.GetFunction("Update").Call();
+
+            int tempWood = 0; 
+            for(int i =0; i < inventory.inventory.Length; i++)
+            {
+                if(inventory.inventory[i].name == "raw_wood")
+                {
+                    tempWood++; 
+                } 
+            }
             
+
         }
 
         public int TaskNum()
@@ -108,76 +120,28 @@ namespace IslandSurvival
             task.priority = priority;
 
             // TODO: if job requires location or anythhing else, assign that here
-
-            switch (task.job.name)
+            if(jobName == "Forestry")
             {
-                /*
-                case "Forestry":
-                    {
-                        // wood
-
-                        
-                        Material[] materials = new Material[TerrainGenerator.GetMaterials().Count];
-                        for (int i = 0; i < materials.Count(); i++)
-                        {
-                            materials[i] = TerrainGenerator.GetMaterials()[i];
-                        }
-
-                        float lowestDist = 9999999999;
-                        int index = 0;
-                        for (int i = 0; i < materials.Count(); i++)
-                        {
-                            if (materials[i].GetId() == 1)
-                            {
-                                float cDist = Distance((int)materials[i].position.X,
-                                    (int)materials[i].position.Y);
-
-                                if (cDist < lowestDist)
-                                {
-                                    lowestDist = cDist;
-                                    index = i;
-
-                                }
-
-                            }
-
-
-                        }
-
-
-                        // goto wood   
-                        if (materials.Length > 0)
-                        {
-                            materials[index].index = index;
-                            task.index = index; 
-                            task.location1.X = (int)materials[index].position.X / 32;
-                            task.location1.Y = (int)materials[index].position.Y / 32;
-                            
-                        }
-
-                        break;    
-                    }
-                    */
-
+                task.location1 = World.LocateLayer1Object(0, position);
             }
 
             if (tasks.Count > 0)
             {
                 if (tasks.Contains(task))
                 {
-                    // tasks[tasks.IndexOf(task)].Add();
+                    //tasks[tasks.IndexOf(task)].Add();
                     return; 
                 }
                 else
                 {
                     tasks.Add(task);
-                    Console.WriteLine("Existing Task not found. Added task with aa name of: " + task.job.name);
+                   // Console.WriteLine("Existing Task not found. Added task with aa name of: " + task.job.name);
                 }
             }
             else
             {
                 tasks.Add(task);
-                Console.WriteLine("Existing Task not found. Added task with a name of: " + task.job.name);
+               // Console.WriteLine("Existing Task not found. Added task with a name of: " + task.job.name);
             }
 
 

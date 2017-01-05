@@ -10,12 +10,12 @@ namespace IslandSurvival
     {
         public enum CommandType
         {
-            Move,
-            Pickup, 
-            Build,
-            Destroy,
-            Drop,
-            Kill
+            Move = 0,
+            Pickup = 1, 
+            Build = 2,
+            Destroy = 3,
+            Drop = 4,
+            Kill = 5
         }
 
         public Point location;

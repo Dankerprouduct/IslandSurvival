@@ -2,30 +2,56 @@
 <XnaContent>
   <!-- TODO: replace this Asset with your own XML asset data. -->
   <Asset Type="IslandSurvivalLibrary.Object[]">
+
+    <Item>
+      <name>raw_wood</name>
+      <id>0</id>
+      <type>Nothing</type>
+    </Item>
+
+    <Item>
+      <name>raw_stone</name>
+      <id>1</id>
+      <type>Nothing</type>
+    </Item>
+
+    <Item>
+      <name>wood_wall</name>
+      <id>2</id>
+      <type>Nothing</type>
+    </Item>
+
+    <Item>
+      <name>stone_wall</name>
+      <id>3</id>
+      <type>Nothing</type>
+    </Item>
     
     <Item>
       <name>Hammer</name>
-      <id>0</id>
+      <id>4</id>
       <type>Tool</type>
     </Item>
 
     <Item>
       <name>Pickaxe</name>
-      <id>1</id>
+      <id>5</id>
       <type>Tool</type>
     </Item>
 
     <Item>
       <name>Axe</name>
-      <id>2</id>
+      <id>6</id>
       <type>Tool</type>
     </Item>
 
     <Item>
       <name>Empty</name>
-      <id>3</id>
+      <id>7</id>
       <type>Nothing</type>
     </Item>
+    
+    
     
   </Asset>
 </XnaContent>

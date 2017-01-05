@@ -34,15 +34,14 @@ namespace IslandSurvival
         Vector2 mousePos;
         MouseState mouseState;
 
-        public static int sizeX = 500;
-        public static int sizeY = 300;
+        public static int sizeX = 250;
+        public static int sizeY = 250;
 
         bool paused = false;
 
-
-       // SurvivorManager survivors;
-        Line[] lines;
-        Line[] groupLines; 
+        NPC npc1;
+        Group group1; 
+        Texture2D npc1Texture; 
         public static Vector2 GetMousePosition()
         {
             return worldPos;
@@ -61,8 +60,6 @@ namespace IslandSurvival
         }
 
 
-
-
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -77,29 +74,20 @@ namespace IslandSurvival
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             string seed = "iuhygfdxs";//"kljkbj";
-            Console.WriteLine(seed.GetHashCode());
-            world = new World();
-            world.LoadContent(Content); 
-
+            world = new World(sizeX, sizeY, seed.GetHashCode());
+            world.LoadContent(Content);
+            Console.WriteLine("Generated world with size of : " + sizeX * sizeY);
             camera = new Camera(GraphicsDevice.Viewport);
             player = new Player(new Vector2((0 * 2) / 2, (0 * 32) / 2));
 
             spriteFont = Content.Load<SpriteFont>("SpriteFont1");
 
-            //survivors = new SurvivorManager();
-            //survivors.LoadContent(Content);
-
-            // lines = new Line[survivors.survivors.Count];
-            // groupLines = new Line[survivors.survivors.Count]; 
-
-            /*
-            for (int i = 0; i < lines.Length; i++)
-            {
-             //   lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
-              //  groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice); 
-            }
-            */
-            
+            group1 = new Group("group1", Content);
+            group1.CompileLua(); 
+            npc1 = new NPC_Creator("David").SpawnNPC(new Vector2 (2784, 2592));
+            npc1.group = group1;
+            npc1.LoadContent(Content); 
+            npc1Texture = Content.Load<Texture2D>("orangeGuy"); 
         }
 
         protected override void UnloadContent()
@@ -124,18 +112,10 @@ namespace IslandSurvival
             mousePos = new Vector2(mouseState.X, mouseState.Y);
             worldPos = Vector2.Transform(mousePos, Matrix.Invert(camera.transform));
 
-            /*
-            for (int i = 0; i < lines.Length; i++)
-            {
-               // lines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].objective, 5, Color.Red, GraphicsDevice);
-               // lines[i].Update();
-               // groupLines[i] = new Line(survivors.survivors[i].GetPosition(), survivors.survivors[i].group.position, 5, Color.Indigo, GraphicsDevice);
-               // groupLines[i].Update(); 
-            }
-            */
             if (keyboardState.IsKeyDown(Keys.C) && oldKeyboardState.IsKeyUp(Keys.C))
             {
-              //  survivors.CompileLua();
+                //  survivors.CompileLua();
+                npc1.LoadLua(); 
             }
             if (keyboardState.IsKeyDown(Keys.Space) && oldKeyboardState.IsKeyUp(Keys.Space))
             {
@@ -144,11 +124,11 @@ namespace IslandSurvival
 
             if (!paused)
             {
-                //survivors.Update();
+                group1.Update();
+                npc1.Update(); 
             }
 
-
-            // Adam.Update(); 
+            group1.position = npc1.position; 
             player.Update();
             camera.Update(ref game);
             oldKeyboardState = keyboardState;
@@ -162,39 +142,22 @@ namespace IslandSurvival
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null,
                 null, null, null, camera.transform);
 
-
-            //terrainGenerator.Draw(spriteBatch);
-
             world.DrawLayer3(spriteBatch); 
-            //spriteBatch.Draw(texture, Adam.GetPosition(), Color.White);
-
-            /*
-            for (int i = 0; i < lines.Length; i++)
-            {
-                lines[i].Draw(spriteBatch);
-                groupLines[i].Draw(spriteBatch); 
-            }
-
-            */
-
-            // terrainGenerator.DrawMaterials(spriteBatch); 
+            
             world.DrawLayer2(spriteBatch);
             //survivors.Draw(spriteBatch);
-
-            // terrainGenerator.DrawTrees(spriteBatch);
+            spriteBatch.Draw(npc1Texture, npc1.position, Color.White); 
             world.DrawLayer1(spriteBatch); 
             fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-
-
 
             spriteBatch.End();
 
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(spriteFont, "FPS: " + ((int)fps).ToString(), new Vector2(50, 50), Color.Red);
+            spriteBatch.DrawString(spriteFont, "FPS: " + ((int)fps).ToString(), new Vector2(50, 50), Color.AliceBlue);
             spriteBatch.DrawString(spriteFont, "Mouse Position: " + ((int)worldPos.X / 32).ToString() + " - " + ((int)worldPos.Y / 32).ToString(), new Vector2(50, 75), Color.Red);
+            spriteBatch.DrawString(spriteFont, "TaskQueue: " + npc1.taskQueue.Count(), new Vector2(50, 100), Color.AliceBlue);
 
             spriteBatch.End();
             base.Draw(gameTime);

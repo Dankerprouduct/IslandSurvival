@@ -9,7 +9,7 @@ namespace IslandSurvival
     public class Inventory
     {
 
-        IslandSurvivalLibrary.Object[] objects; 
+        public IslandSurvivalLibrary.Object[] objects; 
         public IslandSurvivalLibrary.Object[] inventory; 
         public Inventory(int size)
         {
@@ -26,7 +26,7 @@ namespace IslandSurvival
             // setting each inventory slot to empty
             for(int i = 0; i < inventory.Length; i++)
             {
-                inventory[i] = objects[3];
+                inventory[i] = objects[7];
             }
 
         }
@@ -43,6 +43,23 @@ namespace IslandSurvival
             }
         }
 
+        public void AddObject(int id)
+        {
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i].id == 3) // 3 = "Empty"
+                {
+                    for (int j = 0; j < objects.Count(); j++)
+                    {
+                        if(objects[j].id == id)
+                        {
+                            inventory[i] = objects[j];
+                            return; 
+                        }
+                    }
+                }
+            }
+        }
 
 
     }

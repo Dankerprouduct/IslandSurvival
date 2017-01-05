@@ -22,3 +22,4 @@ Lua\Group.lua
 Lua\idle.lua
 Lua\raw_Tree.lua
 Lua\GenerateNPC.lua
+Lua\NPCLogic.lua

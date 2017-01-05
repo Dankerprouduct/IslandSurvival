@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using NLua; 
-
+using NLua;
+using Microsoft.Xna.Framework.Content; 
 namespace IslandSurvival
 {
     public class NPC
     {
 
-        private Vector2 position;
+        public Vector2 position;
         private string name;
         private byte strength;
         private byte speed;
@@ -18,10 +18,10 @@ namespace IslandSurvival
         private byte dexterity;
         private byte health;
         private byte maxHealth;
-        private Group group; 
+        public Group group; 
         private Inventory inventory;
         private List<Group.Task> tasks;
-        private List<Command> taskQueue;
+        public List<Command> taskQueue;
         private List<Point> navPoints; 
         private Lua lua; 
         
@@ -36,9 +36,22 @@ namespace IslandSurvival
             dexterity = npcCreator.dexterity;
             inventory = new Inventory(4);
             taskQueue = new List<Command>();
-            tasks = new List<Group.Task>(); 
+            tasks = new List<Group.Task>();
+            navPoints = new List<Point>(); 
+            this.position = position; 
+            
+
+
         }
-        private void LoadLua()
+
+        public  void LoadContent(ContentManager content)
+        {
+            inventory.LoadContent(content);            
+            inventory.inventory[0] = inventory.objects[6];
+            LoadLua(); 
+        }
+
+        public void LoadLua()
         {
             lua = new Lua();
             lua.RegisterFunction("RefreshTasks", this, GetType().GetMethod("RefreshTasks"));
@@ -46,21 +59,33 @@ namespace IslandSurvival
             lua.RegisterFunction("MoveTo", this, GetType().GetMethod("MoveTo"));
             lua.RegisterFunction("NavigateTo", this, GetType().GetMethod("NavigateTo"));
             lua.RegisterFunction("GetNavigation", this, GetType().GetMethod("GetNavigation")); 
-            lua.RegisterFunction("GetItem", this, GetType().GetMethod("GetItem"));
+            lua.RegisterFunction("InventoryContains", this, GetType().GetMethod("InventoryContains"));
             lua.RegisterFunction("AddCommand", this, GetType().GetMethod("AddCommand"));
-            lua.RegisterFunction("RemoveCommand", this, GetType().GetMethod("RemoveCommand")); 
+            lua.RegisterFunction("RemoveCommand", this, GetType().GetMethod("RemoveCommand"));
+            lua.RegisterFunction("GetCommand", this, GetType().GetMethod("GetCommand"));
+            lua.RegisterFunction("GetCommandNum", this, GetType().GetMethod("GetCommandNum"));
+            lua.RegisterFunction("GetCommandEnum", this, GetType().GetMethod("GetCommandEnum"));
             lua.RegisterFunction("Distance", this, GetType().GetMethod("Distance"));
-            lua.RegisterFunction("GetPosition", this, this.GetType().GetMethod("GetPosition"));
+            lua.RegisterFunction("GetPosition", this, GetType().GetMethod("GetPosition"));
+            lua.RegisterFunction("GetPointNum", this, GetType().GetMethod("GetPointNum"));
+            lua.RegisterFunction("RemovePoint", this, GetType().GetMethod("RemovePoint")); 
             lua.RegisterFunction("Pickup", this, this.GetType().GetMethod("Pickup"));
             lua.RegisterFunction("Destroy", this, this.GetType().GetMethod("Destroy"));
             lua.RegisterFunction("Build", this, this.GetType().GetMethod("Build"));
             lua.RegisterFunction("Drop", this, this.GetType().GetMethod("Drop"));
             lua.RegisterFunction("Kill", this, this.GetType().GetMethod("Kill"));
+            
 
+            lua.DoFile("Lua/NPCLogic.lua"); 
         }
-        
+
+        public void Update()
+        {
+            lua.GetFunction("Update").Call();
+        }
+
         #region lua functions
-        private void RefreshTasks()
+        public void RefreshTasks()
         {
             for(int i = 0; i < group.TaskNum(); i++)
             {
@@ -82,7 +107,7 @@ namespace IslandSurvival
             }
         }
 
-        private Group.Task GetTask()
+        public Group.Task GetTask()
         {
             if(tasks.Count > 0)
             {
@@ -92,15 +117,16 @@ namespace IslandSurvival
             }
             else
             {
-                Group.Task idleTask = new Group.Task(); 
-                idleTask.job = group.jobs[5];
+                Console.WriteLine("getting idle task"); 
+                Group.Task idleTask = new Group.Task();
+                idleTask.job = group.jobs[5]; 
                 return idleTask; 
             }
         }
 
-        private void NavigateTo(int x, int y)
+        public void NavigateTo(int x, int y)
         {
-
+            
             AStar navigate = new AStar();
             AStar.Grid grid = new AStar.Grid(Game1.sizeX, Game1.sizeY, 1);
             List<Point> points = grid.Pathfind(new Point((int)position.X / 32, (int)position.Y / 32), new Point(x, y));
@@ -109,7 +135,7 @@ namespace IslandSurvival
             navPoints = points;
         }
 
-        private Vector2 GetNavigation(int x, int y, int index)
+        public Vector2 GetNavigation(int x, int y, int index)
         {
 
 
@@ -120,17 +146,24 @@ namespace IslandSurvival
             return new Vector2(navPoints[navPoints.Count - 1].X * 32, navPoints[navPoints.Count - 1].Y * 32);
         }
 
-        private void MoveTo(int x, int y, float ammount)
+        public void MoveTo(int x, int y, float ammount)
         {
             position = Vector2.Lerp(position, new Vector2(x, y), ammount); 
         }
 
-        private Object GetItem(int i)
+        public bool InventoryContains(string name)
         {
-            return inventory.inventory[i]; 
+            for(int i =0; i < inventory.inventory.Count(); i++)
+            {
+                if(inventory.inventory[i].name == name)
+                {
+                    return true; 
+                }
+            }
+            return false; 
         }
 
-        private void AddCommand(string type, int x = 0, int y = 0, int i = 0)
+        public void AddCommand(string type, int x = 0, int y = 0, int i = 0)
         {
             Command command = new Command(); 
             switch (type)
@@ -169,57 +202,77 @@ namespace IslandSurvival
             taskQueue.Add(command); 
         }
 
-        private void RemoveCommand(int index)
+        public void RemoveCommand(int index)
         {
+           
             taskQueue.RemoveAt(index); 
         }
 
-        private float Distance(int x, int y)
+        public Command GetCommand(int index)
+        {
+            return taskQueue[index]; 
+        }
+
+        public int GetCommandNum()
+        {
+            return taskQueue.Count(); 
+        }
+
+        public int GetCommandEnum(Command.CommandType type)
+        {
+            return (int)type; 
+        }
+
+        public float Distance(int x, int y)
         {
             return Vector2.Distance(position, new Vector2(x, y));
         }
 
-        private int GetPointNum()
+        public int GetPointNum()
         {
             return navPoints.Count(); 
         }
 
-        private Vector2 GetPosition()
+        public void RemovePoint(int index)
+        {
+            navPoints.RemoveAt(index);
+        }
+
+        public Vector2 GetPosition()
         {
             return position;
         }
 
 
         #region world interation
-        private int Pickup(int x, int y)
+        public int Pickup(int x, int y)
         {
+            group.inventory.AddObject(World.Pickup(x, y)); 
             return World.Pickup(x, y); 
         }
 
-        private void Build(int x, int y, int i)
+        public void Build(int x, int y, int i)
         {
             World.Build(x, y, i); 
         }
 
-        private void Destroy(int x, int y)
+        public void Destroy(int x, int y)
         {
             World.Destroy(x, y);
         }
         
-        private void Drop(int x, int y, int i)
+        public void Drop(int x, int y, int i)
         {
             World.Drop(x, y, i); 
         }
 
-        private void Kill(int i)
+        public void Kill(int i)
         {
 
         }
         #endregion
         #endregion
               
-
-
-
+        
     }
 }

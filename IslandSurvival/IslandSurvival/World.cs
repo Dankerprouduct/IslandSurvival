@@ -97,6 +97,7 @@ namespace IslandSurvival
             Drop(x, y, layer1[x, y]);
             layer1[x, y] = 101; 
         }
+       
         public static void Drop(int x, int y, int i)
         {
             layer2[x, y] = i; 
@@ -107,6 +108,66 @@ namespace IslandSurvival
             layer2[x, y] = 101;
             return tempId;  
         }
+
+        #region Locate
+        public static Point LocateLayer1Object(int id, Vector2 postion)
+        {
+            float dist;
+            float lowest = 9999999999;
+            Point point = new Point(0, 0); 
+            for (int x = 0; x < GetMap().GetLength(0); x++)
+            {
+                for(int y = 0; y < GetMap().GetLength(1); y++)
+                {
+                    if(layer1[x,y] == id)
+                    {
+                        dist = Vector2.Distance(postion, new Vector2(x * 32, y * 32));
+                        
+                        if(dist < lowest)
+                        {
+                            lowest = dist;
+                            point = new Point(x, y);
+                            
+                        }
+                                                
+                    }
+                }
+            }
+            return point;
+           // return new Point();  
+        }
+
+        public static Point LocateLayer2Object(int id)
+        {
+            for (int x = 0; x < GetMap().GetLength(0); x++)
+            {
+                for (int y = 0; x < GetMap().GetLength(1); y++)
+                {
+                    if (layer2[x, y] == id)
+                    {
+                        return new Point(x, y);
+                    }
+                }
+            }
+            return new Point();
+        }
+
+        public static Point LocateLayer3Object(int id)
+        {
+            for (int x = 0; x < GetMap().GetLength(0); x++)
+            {
+                for (int y = 0; x < GetMap().GetLength(1); y++)
+                {
+                    if (layer3[x, y] == id)
+                    {
+                        return new Point(x, y);
+                    }
+                }
+            }
+            return new Point();
+        }
+        #endregion
+
         #endregion
 
         #region Drawing
@@ -289,8 +350,6 @@ namespace IslandSurvival
 
         }
 
-
-
         public float[,] WhiteNoise(int width, int height)
         {
             Random random = new Random(seed);
@@ -342,8 +401,6 @@ namespace IslandSurvival
             }
             return smoothNoise;
         }
-
-
 
         float[,] GeneratePerlinNoise(float[,] baseNoise, int OctaveCount)
         {
