@@ -117,7 +117,7 @@ namespace IslandSurvival
             }
             else
             {
-                Console.WriteLine("getting idle task"); 
+                
                 Group.Task idleTask = new Group.Task();
                 idleTask.job = group.jobs[5]; 
                 return idleTask; 

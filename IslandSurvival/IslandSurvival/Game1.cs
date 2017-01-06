@@ -40,7 +40,8 @@ namespace IslandSurvival
         bool paused = false;
 
         NPC npc1;
-        Group group1; 
+        Group group1;
+        Texture2D group1Texture; 
         Texture2D npc1Texture; 
         public static Vector2 GetMousePosition()
         {
@@ -59,7 +60,6 @@ namespace IslandSurvival
 
         }
 
-
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -73,21 +73,26 @@ namespace IslandSurvival
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            string seed = "iuhygfdxs";//"kljkbj";
+            string seed = "Default";//"kljkbj";
             world = new World(sizeX, sizeY, seed.GetHashCode());
             world.LoadContent(Content);
             Console.WriteLine("Generated world with size of : " + sizeX * sizeY);
             camera = new Camera(GraphicsDevice.Viewport);
             player = new Player(new Vector2((0 * 2) / 2, (0 * 32) / 2));
-
+            
             spriteFont = Content.Load<SpriteFont>("SpriteFont1");
 
             group1 = new Group("group1", Content);
+            group1Texture = Content.Load<Texture2D>("RedErrorTexture"); 
             group1.CompileLua(); 
             npc1 = new NPC_Creator("David").SpawnNPC(new Vector2 (2784, 2592));
             npc1.group = group1;
             npc1.LoadContent(Content); 
-            npc1Texture = Content.Load<Texture2D>("orangeGuy"); 
+            npc1Texture = Content.Load<Texture2D>("orangeGuy");
+
+            Point point = world.FindGroupLocation(); 
+            group1.position = new Vector2(point.X * 32, point.Y * 32);
+            Console.WriteLine("GROUPS LOCATION: " + group1.position); 
         }
 
         protected override void UnloadContent()
@@ -128,7 +133,7 @@ namespace IslandSurvival
                 npc1.Update(); 
             }
 
-            group1.position = npc1.position; 
+             
             player.Update();
             camera.Update(ref game);
             oldKeyboardState = keyboardState;
@@ -146,8 +151,12 @@ namespace IslandSurvival
             
             world.DrawLayer2(spriteBatch);
             //survivors.Draw(spriteBatch);
+
+            
             spriteBatch.Draw(npc1Texture, npc1.position, Color.White); 
-            world.DrawLayer1(spriteBatch); 
+            world.DrawLayer1(spriteBatch);
+
+            spriteBatch.Draw(group1Texture, group1.position, Color.White);
             fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             spriteBatch.End();

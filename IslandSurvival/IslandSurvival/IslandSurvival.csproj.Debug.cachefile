@@ -16,6 +16,7 @@ Content\Xml\Object.xnb
 Content\StoneWall.xnb
 Content\WoodWall.xnb
 Content\stone.xnb
+Content\RedErrorTexture.xnb
 Lua\Character.lua
 Lua\Tree.lua
 Lua\Group.lua

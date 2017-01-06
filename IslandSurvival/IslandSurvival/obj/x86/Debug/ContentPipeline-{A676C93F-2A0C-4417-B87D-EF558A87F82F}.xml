@@ -163,6 +163,15 @@
       <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\stone.xnb</Output>
       <Time>2017-01-04T17:20:12.4630278-05:00</Time>
     </Item>
+    <Item>
+      <Source>RedErrorTexture.png</Source>
+      <Name>RedErrorTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\RedErrorTexture.xnb</Output>
+      <Time>2017-01-05T21:15:44.1963902-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{A676C93F-2A0C-4417-B87D-EF558A87F82F}</ContentProjectGUID>

@@ -17,7 +17,7 @@ function Update()
 	
 	cWood = GetWood(); 
 	cStone = GetWood(); 
-	print(cWood); 
+	--print(cWood); 
 	if(cWood <= minWood) then 
 
 	AddWoodTask(); 

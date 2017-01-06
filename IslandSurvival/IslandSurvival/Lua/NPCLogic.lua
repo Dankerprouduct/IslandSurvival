@@ -41,7 +41,7 @@ function Update()
 	MoveTo(GetNavigation(objectiveX, objectiveY, pointIndex).X, GetNavigation(objectiveX, objectiveY, pointIndex).Y, (5 / distance));
 	end
 	if(distance < 5.5) then 
-	print("next point"); 
+	--print("next point"); 
 	NextPoint(); 
 	
 	--RemovePoint(0); 
@@ -88,7 +88,7 @@ function ProcessTaskB(task)
 		-- needs a locate command
 
 		elseif(task.job.name == "FreeTime") then
-		print("nothing");
+		--print("nothing");
 		AddCommand("Move", GetPosition().X /32, GetPosition().Y / 32 ); 
 
 		end
@@ -128,17 +128,17 @@ function ProcessTaskC()
 	
 	RemoveCommand(commandIndex); 
 	
-	print("removed command" , command.type, proccessingCommand); 
+	--print("removed command" , command.type, proccessingCommand); 
 end
 
 
 function NextPoint()
 	
-	print(GetPointNum(),  proccessingCommand); 
+	--print(GetPointNum(),  proccessingCommand); 
 	if(GetPointNum() > 0) then
 		RemovePoint(0); 
 	end
-	print(GetPointNum()); 
+	--print(GetPointNum()); 
 	if(GetPointNum() == 0) then
 	proccessingCommand = false; 
 	end

@@ -62,3 +62,4 @@ C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvi
 C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\WoodWall.xnb
 C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\stone.xnb
 C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Lua\NPCLogic.lua
+C:\Users\Danker\Documents\Visual Studio 2015\Projects\IslandSurvival\IslandSurvival\IslandSurvival\bin\x86\Debug\Content\RedErrorTexture.xnb

@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content; 
-
+using Microsoft.Xna.Framework.Content;
 namespace IslandSurvival
 {
     public class World
@@ -13,7 +12,7 @@ namespace IslandSurvival
         private int width;
         private int height;
         private int seed;
-
+        
         #region Layers
         /// <summary>
         /// Layer 1 is where all of the structures are kept (Buildings, Trees, Rocks, etc).
@@ -77,14 +76,174 @@ namespace IslandSurvival
             Layer1Textures.Add(content.Load<Texture2D>("stone")); // REPLACE THIS TREE WITH STONE
             Layer1Textures.Add(content.Load<Texture2D>("WoodWall"));
             Layer1Textures.Add(content.Load<Texture2D>("StoneWall"));
+            Layer1Textures.Add(content.Load<Texture2D>("RedErrorTexture"));
             #endregion
-            MapGeneration(width, height); 
+            MapGeneration(width, height);
+                                
+        }
+
+        public Point FindGroupLocation()
+        {
             
+            int tileX; 
+            int tileY;
+            int radius = 10;
+            
+            List<Vector3> points = new List<Vector3>(); 
+            for(int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+
+                    List<float> Values = new List<float>();
+                    for (int r = 0; r < radius; r++)
+                    {
+                        
+                        for (int z = 0; z < 360; z++)
+                        {
+                            tileX = r + x;
+                            tileY = r + y;
+
+                            float mRadius = (float)Math.Pow(tileX - x, 2) + (float)Math.Pow(tileY - y, 2);
+                            mRadius = (float)Math.Sqrt(mRadius);
+
+                            tileX = (int)(Math.Cos(z) * mRadius + x);
+                            tileY = (int)(Math.Sin(z) * mRadius + y);
+
+                            
+                            if (tileX >= 0 && tileX < width)
+                            {
+                                if (tileY >= 0 && tileY < height)
+                                {
+                                    //Console.WriteLine(tileX + " , " + tileY);
+                                    Values.Add(AddTempTile1(tileX, tileY));
+                                    Values.Add(AddTempTile2(tileX, tileY));
+                                }
+                            }
+                        }
+                    }
+
+
+                    float max = 0;
+                    
+                    for(int i = 0; i < Values.Count(); i++)
+                    {
+                        max += Values[i]; 
+                    }
+
+                    max /= Values.Count(); 
+                                        
+                    points.Add(new Vector3(x, y, max)); 
+                }
+            }
+
+
+            Point point = new Point();
+            float pointMax = 0;
+            for (int i = 0; i < points.Count(); i++)
+            {
+                
+                
+                if(points[i].Z > pointMax)
+                {
+                    point = new Point((int)points[i].X, (int)points[i].Y);
+                    pointMax = points[i].Z; 
+                    //Console.WriteLine("Point Max: " + points[i].Z);  
+                }
+
+            }
+
+
+            
+            
+            for (int z = 0; z < 360; z++)
+            {
+                tileX = radius + point.X;
+                tileY = radius + point.Y;
+                float mRadius = (float)Math.Pow(tileX - point.X, 2) + (float)Math.Pow(tileY - point.Y, 2);
+                mRadius = (float)Math.Sqrt(mRadius);
+                
+                //Console.WriteLine(mRadius); 
+                tileX = (int)(Math.Cos(z) * mRadius) + point.X;
+                tileY = (int)(Math.Sin(z) * mRadius) + point.Y;
+                if (tileX >= 0 && tileX < width)
+                {
+                    if (tileY >= 0 && tileY < height)
+                    {
+                        //Console.WriteLine("radius: "+ tileX + " , " + tileY);                         
+                        layer1[tileX, tileY] = 4;                      
+
+                    }
+                }
+            }
+
+            Console.WriteLine("BEST POINT IS: " + point); 
+            return point; 
+        }
+
+        public float AddTempTile1(int x, int y)
+        {
+
+            switch (layer1[x, y])
+            {
+                case 101:
+                    {
+                        return 1.6f;
+                    }
+                case 0: // tree
+                    {
+                        
+                        return 0; 
+                    }
+                case 1: // stone
+                    {
+                        return .1f; 
+                    }
+            }
+            
+            
+            return 0; 
+        }
+
+        public float AddTempTile2(int x, int y)
+        {
+            
+            switch (layer3[x, y])
+            {
+
+                case 101:
+                    {
+                        //.WriteLine("101");
+                        return 0;
+                    }
+                case 0: // water
+                    {
+                        return 1.205f;
+                    }
+                case 1: // Sand Tile
+                    {
+                        //Console.WriteLine("1");
+                        return 1.1f;
+                    }
+                case 2: // Grass
+                    {
+                        //Console.WriteLine("2");
+                        return 1.3f;
+                    }
+                case 3: // Dirt
+                    {
+                        //Console.WriteLine("3");
+                        return 1.4f;
+                    }
+
+            }
+            
+            return 0; 
         }
 
         public static int[,] GetMap() // PathFinding uses this
         {
-            return layer3; 
+            return layer3;
         }
 
         #region world interation
@@ -268,7 +427,7 @@ namespace IslandSurvival
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (layer3[x, y] != 101)
+                    if (layer3[x, y] != 101 && layer3[x,y] != 0)
                     {
                         spriteBatch.Draw(Layer3Textures[layer3[x, y]],
                                 new Rectangle(32 * x, 32 * y,
@@ -303,8 +462,9 @@ namespace IslandSurvival
                 for (int y = 0; y < height; y++)
                 {
 
-                    if (postGenMap[x, y] <= 0 && postGenMap[x, y] >= .3f)
+                    if (postGenMap[x, y] <= .3 && postGenMap[x, y] >= 0f)
                     {
+                        
                         layer3[x, y] = 0;
                     }
                     if (postGenMap[x, y] <= .6f && postGenMap[x, y] >= .3f)

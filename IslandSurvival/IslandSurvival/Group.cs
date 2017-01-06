@@ -28,7 +28,7 @@ namespace IslandSurvival
         public List<Task> tasks = new List<Task>();
 
         private int wealth;
-        private int wood = 51; 
+        private int wood = 1; 
         private int stone = 0;
         private int age = 1;
 
@@ -62,7 +62,7 @@ namespace IslandSurvival
             Console.WriteLine("Group position:" + position.X/32 + " "+position.Y/32);
         }
         
-
+        
         public void Update()
         {
             lua.GetFunction("Update").Call();
@@ -73,7 +73,7 @@ namespace IslandSurvival
                 if(inventory.inventory[i].name == "raw_wood")
                 {
                     tempWood++; 
-                } 
+                }
             }
             
 

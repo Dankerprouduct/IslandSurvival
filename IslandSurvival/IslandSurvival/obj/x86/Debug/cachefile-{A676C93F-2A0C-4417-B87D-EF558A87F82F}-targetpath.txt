@@ -16,3 +16,4 @@ Content\Xml\Object.xnb
 Content\StoneWall.xnb
 Content\WoodWall.xnb
 Content\stone.xnb
+Content\RedErrorTexture.xnb
