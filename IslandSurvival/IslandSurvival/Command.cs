@@ -30,6 +30,12 @@ namespace IslandSurvival
             this.location = location;
             this.type = type; 
         }
+        public Command(Point location, CommandType type, int index)
+        {
+            this.location = location;
+            this.type = type;
+            this.index = index; 
+        }
         public Command(int index, CommandType type)
         {
             this.index = index;

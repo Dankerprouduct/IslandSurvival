@@ -156,7 +156,7 @@ namespace IslandSurvival
             spriteBatch.Draw(npc1Texture, npc1.position, Color.White); 
             world.DrawLayer1(spriteBatch);
 
-            spriteBatch.Draw(group1Texture, group1.position, Color.White);
+            //spriteBatch.Draw(group1Texture, group1.position, Color.White);
             fps = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             spriteBatch.End();

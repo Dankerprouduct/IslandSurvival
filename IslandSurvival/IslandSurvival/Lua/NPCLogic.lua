@@ -79,6 +79,9 @@ function ProcessTaskB(task)
 		AddCommand("Move", task.location1.X, task.location1.Y); 
 		AddCommand("Destroy", task.location1.X, task.location1.Y);
 		AddCommand("Pickup", task.location1.X, task.location1.Y); 
+		--AddCommand("Move", task.location2.X, task.location2.Y); 
+		--AddCommand("Drop", task.location2, task.location2, 1); 
+		
 
 		elseif(task.job.name == "Builder") then 
 		AddCommand("Move", task.location1.X, task.location.Y); 

@@ -7,13 +7,13 @@ Content\Sand1.xnb
 Content\Grass1.xnb
 Content\orangeGuy.xnb
 Content\raw_wood.xnb
+Content\StoneWall.xnb
+Content\WoodWall.xnb
+Content\stone.xnb
+Content\RedErrorTexture.xnb
 Content\SpriteFont1.xnb
 Content\SpriteFont2.xnb
 Content\Xml\ItemDatabase.xnb
 Content\Xml\Names.xnb
 Content\Xml\Jobs.xnb
 Content\Xml\Object.xnb
-Content\StoneWall.xnb
-Content\WoodWall.xnb
-Content\stone.xnb
-Content\RedErrorTexture.xnb

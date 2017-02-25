@@ -130,6 +130,7 @@ namespace IslandSurvival
                 }
 
                 // unable to figure out a path, abort.
+                
                 throw new Exception(
                     string.Format(
                         "unable to find a path between {0},{1} and {2},{3}",
@@ -137,6 +138,8 @@ namespace IslandSurvival
                         end.X, end.Y
                     )
                 );
+
+                
             }
 
             /// <summary>

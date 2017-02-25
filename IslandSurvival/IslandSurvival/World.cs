@@ -9,8 +9,8 @@ namespace IslandSurvival
 {
     public class World
     {
-        private int width;
-        private int height;
+        static int width;
+        static int height;
         private int seed;
         
         #region Layers
@@ -28,15 +28,15 @@ namespace IslandSurvival
         static int[,] layer3;
         #endregion
 
-        private List<Texture2D> Layer3Textures;
-        private List<Texture2D> Layer2Textures;
-        private List<Texture2D> Layer1Textures; 
+        public static List<Texture2D> Layer3Textures;
+        public static List<Texture2D> Layer2Textures;
+        public static List<Texture2D> Layer1Textures; 
 
 
-        public World(int width = 250, int height = 250, int seed = 0)
+        public World(int _width = 250, int _height = 250, int seed = 0)
         {
-            this.width = width;
-            this.height = height;
+            width = _width;
+            height = _height;
             this.seed = seed;
 
             layer1 = new int[width, height];
@@ -246,6 +246,16 @@ namespace IslandSurvival
             return layer3;
         }
 
+        public static int GetWidth()
+        {
+            return width; 
+        }
+
+        public static int GetHeight()
+        {
+            return height; 
+        }
+        
         #region world interation
         public static void Build(int x, int y, int i)
         {
@@ -470,11 +480,10 @@ namespace IslandSurvival
                     if (postGenMap[x, y] <= .6f && postGenMap[x, y] >= .3f)
                     {
                         layer3[x, y] = 1;
-                                               
+
                         if (postGenMap[x, y] <= .65f && postGenMap[x, y] >= .55f)
                         {
                             layer3[x, y] = 3;
-                            
                         }
 
                     }

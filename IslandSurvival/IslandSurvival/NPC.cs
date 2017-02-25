@@ -47,7 +47,7 @@ namespace IslandSurvival
         public  void LoadContent(ContentManager content)
         {
             inventory.LoadContent(content);            
-            inventory.inventory[0] = inventory.objects[6];
+            inventory.npcInventory[0].npcObject = inventory.objects[6];
             LoadLua(); 
         }
 
@@ -153,9 +153,9 @@ namespace IslandSurvival
 
         public bool InventoryContains(string name)
         {
-            for(int i =0; i < inventory.inventory.Count(); i++)
+            for(int i =0; i < inventory.npcInventory.Count(); i++)
             {
-                if(inventory.inventory[i].name == name)
+                if(inventory.npcInventory[i].npcObject.name == name)
                 {
                     return true; 
                 }
@@ -185,7 +185,7 @@ namespace IslandSurvival
                     }
                 case "Drop":
                     {
-                        command = new Command(new Point(x, y), Command.CommandType.Drop); 
+                        command = new Command(new Point(x, y), Command.CommandType.Drop, i); 
                         break; 
                     }
                 case "Kill":
@@ -247,7 +247,7 @@ namespace IslandSurvival
         #region world interation
         public int Pickup(int x, int y)
         {
-            group.inventory.AddObject(World.Pickup(x, y)); 
+            group.inventory.AddToInventory(World.Pickup(x, y), new Point(x, y));  
             return World.Pickup(x, y); 
         }
 

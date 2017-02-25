@@ -51,7 +51,7 @@ namespace IslandSurvival
             lua.RegisterFunction("GenerateNewTask", this, this.GetType().GetMethod("GenerateNewTask"));
 
             jobs = content.Load<IslandSurvivalLibrary.Job[]>("XML/Jobs");
-            inventory = new Inventory(100);
+            inventory = new Inventory((byte)20); 
             inventory.LoadContent(content);
             lua.DoFile("Lua/Group.lua");
             lua.GetFunction("Update").Call();
@@ -66,15 +66,7 @@ namespace IslandSurvival
         public void Update()
         {
             lua.GetFunction("Update").Call();
-
-            int tempWood = 0; 
-            for(int i =0; i < inventory.inventory.Length; i++)
-            {
-                if(inventory.inventory[i].name == "raw_wood")
-                {
-                    tempWood++; 
-                }
-            }
+                       
             
 
         }
@@ -123,6 +115,7 @@ namespace IslandSurvival
             if(jobName == "Forestry")
             {
                 task.location1 = World.LocateLayer1Object(0, position);
+                task.location2 = inventory.LocateObject(1, new Point((int)position.X / 32, (int)position.Y /32));
             }
 
             if (tasks.Count > 0)
